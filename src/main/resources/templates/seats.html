@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog :: Home</title>
+    <style>
+        #mycheckbox1 {
+            width: 50px;
+            height: 50px;
+        }
+        #heading{
+			display: inline;
+		}
+    </style>
+</head>
+<body>
+<div class="container">
+	<h1 id="heading">Screen </h1> <h1 id="heading" th:text="${screen.screenId}" />
+    <hr />
+    <div class="dashboard-seat">
+	<form th:action="@{'/seat/{id}'(id=${screen.screenId})}" th:object="${ticket}" method="post">
+    <div class="posts-container">
+        <div class="seats">
+			<table>
+				<thead>
+		            <tr>
+		                <th>Row ID</th>
+		                <th>Seat Number</th>
+		                <th>Seat Id</th>
+		            </tr>
+		        </thead>
+		        <tr th:each="seat : ${seats}">
+					<td>
+					<input id="mycheckbox1" type="checkbox" name="rowId"
+			            th:text="${seat.row_id}"
+			            th:value="${seat.row_id}"
+			        /></td>
+			        <td>
+					<input id="mycheckbox1" type="checkbox" name="seatId"
+			            th:text="${seat.seat_id}"
+			            th:value="${seat.seat_id}"
+			        /></td>
+					<td th:each="snum : ${seat.seat_num}">
+					<input id="mycheckbox1" type="checkbox" name="seatNum"
+			            th:disabled="${snum eq 0}"
+			            th:value="${snum}"
+			        />
+					</td>
+				</tr>
+			</table>
+			<button type="submit">Publish Post</button>
+			</form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

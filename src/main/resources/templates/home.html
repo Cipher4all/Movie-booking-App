@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movie Ticket App</title>
+</head>
+<body>
+<div class="container">
+    <h1>Movie Ticket Booking application</h1>
+    <label for="new-post-topic">Select your location</label>
+    <div class="dropdown-content">
+		<div class="cities" th:each="city : ${cities}"><a th:href="@{'/moviebycity/' + ${city.cityname}}" th:text="${city.cityname}">Link 1</a></div>
+    </div>
+    <ul sec:authorize="!isAuthenticated()">
+        <li><a th:href="@{/register}">Register</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+    </ul>
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}"
+              method="POST">
+            <div>
+                <label>Hi, <span sec:authentication="name">Username</span></label>
+            </div>
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
